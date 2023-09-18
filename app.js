@@ -13,7 +13,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-app.use(cors({ origin: 'http://localhost:8080' }));
+app.use(cors({ origin: ['https://seheesf88.github.io', 'http://localhost:8080'] }));
 // create style tone
 // await openai.files.create({
 //   file: fs.createReadStream("tom_style_tone.jsonl"),
