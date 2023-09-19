@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import OpenAI from "openai";
-import fs from "fs";
-import fetch from 'node-fetch';
+// import fs from "fs";
+// import fetch from 'node-fetch';
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -71,7 +71,6 @@ app.use(cors({ origin: ['https://seheesf88.github.io', 'http://localhost:8080'] 
 // router
 app.post('/ask-openai', async (req, res) => {
   try {
-    console.log('userMessage: ', req.body)
     const userMessage = req.body.userMessage;
 
     const completion = await openai.chat.completions.create({
@@ -79,9 +78,10 @@ app.post('/ask-openai', async (req, res) => {
         { role: "system", content: "Tom is a chatbot who is a wizard and only knows vocabulary from the 'Harry Potter' books. He speaks with arrogance or a condescending tone when asked how to do something involves creating a dialogue dataset where the chatbot exhibits such behavior." },
         { role: "user", content: userMessage}
       ],
-      model: "ft:gpt-3.5-turbo-0613:personal::7ys8wFB3"
+      model: "ft:gpt-3.5-turbo-0613:personal::7ys8wFB3",
+      max_tokens: 30
     })
-    console.log('res: ', completion.choices)
+
     res.json({ openaiResponse: completion.choices[0].message.content });
   } catch (error) {
     console.error('Error interacting with OpenAI:', error);
